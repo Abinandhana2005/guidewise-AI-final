@@ -1,7 +1,6 @@
-/* General styling for the app */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #333; /* Dark theme background */
+  font-family: 'Poppins', sans-serif;
+  background-color: #222;
   color: white;
   margin: 0;
   padding: 0;
@@ -13,9 +12,12 @@ body {
 }
 
 .app-title {
-  font-size: 2.5em;
+  font-size: 5em; /* Make it bigger */
+  font-weight: bold;
   margin-bottom: 20px;
-  color: #4CAF50;
+  color: #f39c12;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* 3D effect */
+  font-family: 'Orbitron', sans-serif; /* Fancy font */
 }
 
 .container {
@@ -24,17 +26,16 @@ body {
   gap: 20px;
 }
 
-.left-section,
-.right-section {
+.left-section, .right-section {
   width: 48%;
-  background-color: #444;
+  background-color: #333;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2, h3 {
-  color: #ffffff;
+h2, h3, h4 {
+  color: #f39c12;
 }
 
 label {
@@ -43,12 +44,18 @@ label {
   margin-bottom: 10px;
 }
 
-input[type="text"], input[type="range"] {
-  width: 100%;
+input[type="text"], input[type="range"], textarea {
+  width: 50%; /* Reduce the slider width */
   margin: 10px 0;
 }
 
-input[type="text"] {
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+input[type="text"], input[type="range"] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
@@ -56,10 +63,17 @@ input[type="text"] {
 
 input[type="range"] {
   -webkit-appearance: none;
-  background-color: #ddd;
-  height: 5px;
+  height: 8px; /* Adjust thickness */
+  background-color: orange; /* Unchosen part */
   border-radius: 5px;
   outline: none;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: orange; /* Unchosen part */
+  height: 8px; /* Adjust thickness */
+  border-radius: 5px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -68,27 +82,30 @@ input[type="range"]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: white; /* Chosen part indicator */
   cursor: pointer;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5); /* Adding some depth */
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #4CAF50;
+  background: white;
   cursor: pointer;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
 }
 
-p {
-  margin-top: -10px;
-  font-size: 16px;
-  color: #4CAF50;
-  font-weight: bold;
+input[type="range"]::-ms-fill-lower {
+  background: white; /* Chosen part */
 }
 
-button.submit-btn, button.analyze-btn {
-  background-color: #4CAF50;
+input[type="range"]::-ms-fill-upper {
+  background: orange; /* Unchosen part */
+}
+
+button {
+  background-color: #f39c12;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -96,8 +113,8 @@ button.submit-btn, button.analyze-btn {
   cursor: pointer;
 }
 
-button.submit-btn:hover, button.analyze-btn:hover {
-  background-color: #45a049;
+button:hover {
+  background-color: #e67e22;
 }
 
 .task-table {
@@ -113,7 +130,7 @@ button.submit-btn:hover, button.analyze-btn:hover {
 }
 
 .task-table th {
-  background-color: #4CAF50;
+  background-color: #f39c12;
   color: white;
 }
 
@@ -122,15 +139,93 @@ button.submit-btn:hover, button.analyze-btn:hover {
   color: white;
 }
 
-.completed-tasks-list {
+.pomodoro-section {
+  margin-top: 20px;
+}
+
+.pomodoro-timer {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #f39c12;
+}
+
+.pomodoro-timer-large {
+  font-size: 5em;
+}
+
+.fullscreen-timer {
+  text-align: center;
+}
+
+.pomodoro-thoughts-section, .pomodoro-unclear-section {
+  width: 30%;
+  background-color: #444;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.leave-session-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #e74c3c;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.leave-session-btn:hover {
+  background-color: #c0392b;
+}
+
+.kickstart-btn {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.kickstart-btn:hover {
+  background-color: #e67e22;
+}
+
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  text-align: center;
+}
+
+.modal-content ul {
   list-style: none;
   padding: 0;
 }
 
-.completed-tasks-list li {
-  background-color: #2ecc71;
+.modal-content li {
+  background-color: #444;
   color: white;
   padding: 10px;
   margin: 5px 0;
-  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content li:hover {
+  background-color: #555;
 }
