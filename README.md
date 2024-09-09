@@ -1,3 +1,81 @@
+GuideWise AI: README
+Project Overview
+GuideWise AI is a productivity web application designed to help users manage their tasks, analyze their learning styles, and improve focus through the Pomodoro technique. It combines task management, motivational suggestions, and learning style analysis to help users achieve better outcomes during study or work sessions.
+
+Features
+Task Management: Add, track, and complete tasks with parameters like progress, confidence, estimated time, and priority.
+
+Pomodoro Timer: Utilize a full-screen Pomodoro timer to work in focused intervals and receive motivational suggestions for breaks.
+
+Learning Style Analysis: Analyze and understand your learning style based on inputs like mood, energy, distraction level, and sleep quality.
+
+Notifications: Receive real-time toast notifications for task updates, Pomodoro completions, and learning style suggestions.
+
+Technologies Used
+React.js: For building the user interface.
+React Toastify: For displaying notifications.
+CSS: For custom styling of the interface.
+Browser APIs: For full-screen mode and other UI interactions.
+Installation
+Clone the Repository:
+
+bash
+Copy code
+git clone https://github.com/wowthrisha/ideathon_guidewiseai.git
+cd ideathon_guidewiseai
+Install Dependencies: Ensure that Node.js and npm are installed. Then, run the following command:
+
+bash
+Copy code
+npm install
+Run the Application: After the installation, you can start the application using:
+
+bash
+Copy code
+npm start
+View the App: Once the server is running, open your browser and navigate to http://localhost:3000 to view the app.
+
+Usage
+Task Management:
+
+Add tasks by filling in the task name and adjusting the parameters (progress, confidence, estimated time, and priority).
+View and manage tasks from the task list and mark them as complete once done.
+Learning Style Analysis:
+
+Input your current mood, energy, distraction level, and sleep quality.
+The app will analyze your inputs and provide a personalized learning style suggestion with motivational advice.
+Pomodoro Timer:
+
+Start a Pomodoro session when you select a task.
+The timer runs for 25 minutes and enters full-screen mode to help you focus.
+You can pause the timer, log intrusive thoughts, or take breaks if distracted.
+Customization
+Sliders:
+
+Sliders are used for inputting values like progress, confidence, and energy levels.
+The slider bars are designed with white and orange colors to visually represent chosen and unchosen portions.
+Full-Screen Mode:
+
+The Pomodoro timer can be viewed in full-screen mode for distraction-free sessions.
+Clicking the "Leave Study Session" button will exit the full-screen mode.
+Contributing
+To contribute to GuideWise AI:
+
+Fork the repository on GitHub.
+Create a new branch for your changes:
+bash
+Copy code
+git checkout -b my-feature
+Make your changes and commit them:
+bash
+Copy code
+git commit -m "Add my feature"
+Push to your branch:
+bash
+Copy code
+git push origin my-feature
+Open a Pull Request and explain your changes.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
