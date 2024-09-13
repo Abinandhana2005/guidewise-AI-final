@@ -1,9 +1,11 @@
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
   background-color: #222;
-  color: white;
+  color: rgb(172, 172, 172);
   margin: 0;
   padding: 0;
+  font-size: 15px;
+  
 }
 
 .App {
@@ -43,11 +45,13 @@ label {
   font-weight: bold;
   color: white;
   margin-bottom: 10px;
+  font-size: larger;
 }
 
 input[type="text"], input[type="range"], textarea {
   width: 50%; /* Reduce the slider width */
   margin: 10px 0;
+  
 }
 
 textarea {
@@ -57,7 +61,7 @@ textarea {
 }
 
 input[type="text"], input[type="range"] {
-  padding: 10px;
+  padding: 1px;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
@@ -73,9 +77,10 @@ input[type="range"] {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  background-color: orange; /* Unchosen part */
+  background-color: rgba(255, 166, 0, 0.215); /* Unchosen part */
   height: 8px; /* Adjust thickness */
   border-radius: 5px;
+
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -129,6 +134,7 @@ button:hover {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
+  
 }
 
 .task-table th {
@@ -185,7 +191,8 @@ button:hover {
   background-color: #f39c12;
   color: white;
   padding: 10px 20px;
-  margin-top: 15px;
+  margin-top: 15px
+  ;
   border-radius: 5px;
 }
 
@@ -241,8 +248,8 @@ button:hover {
 
 .kanban-column {
   margin: 8px;
-  padding: 8px;
-  background-color: white;
+  padding: 45px;
+  background-color: #444;
   border-radius: 4px;
   width: 300px;
   min-height: 300px;
@@ -250,10 +257,49 @@ button:hover {
 }
 
 .kanban-card {
-  border: 1px solid #6c2121;
+  border: 1px solid #454141;
   padding: 8px;
   margin: 4px;
-  background-color: #5f0909; /* Change this to your desired color */
+  background-color: #fdfafa; /* Change this to your desired color */
   color: #000; /* Text color inside the card */
+}
+.gantt-container {
+  width: 90%;
+  height: 500px;
+  border: 1px solid #ddd;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #160f0f;
+
+
+}
+
+.App form {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e67e22;
+
+
+}
+.spline-animation {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 

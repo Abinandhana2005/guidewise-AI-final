@@ -13,8 +13,8 @@
   }
   
   .kanban-card {
-    background: white;
-    border: 1px solid lightgrey;
+    background: rgb(90, 22, 22);
+    border: 1px solid rgb(180, 57, 57);
     border-radius: 4px;
     padding: 8px;
     margin-bottom: 8px;

@@ -1,21 +1,20 @@
 /* src/components/KanbanCard.css */
 .kanban-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center-aligns the card content */
-    font-family: Arial, sans-serif; /* Adjust the font family */
-    font-size: 14px; /* Adjust the font size */
-    color: #333; /* Text color */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better separation */
-  }
-  
-  .card-content {
-    flex: 1; /* Ensures that the content takes up available space */
-    text-align: center; /* Center-aligns the text within the card */
-  }
-  
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center-aligns the card content */
+  font-family: Arial, sans-serif; /* Adjust the font family */
+  font-size: 14px; /* Adjust the font size */
+  color: #333; /* Text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better separation */
+}
+
+.card-content {
+  flex: 1; /* Ensures that the content takes up available space */
+  text-align: center; /* Center-aligns the text within the card */
+}

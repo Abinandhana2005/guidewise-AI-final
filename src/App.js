@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KanbanBoard from './KanbanBoard';
 import KanbanCard from './KanbanCard';
 import './App.css';
+import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
+import 'dhtmlx-gantt';
+import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
+import gantt from 'dhtmlx-gantt';
+
 
 
 
@@ -33,7 +38,7 @@ function App() {
   const [pomodoroCount, setPomodoroCount] = useState(0);
   const [showTaskModal, setShowTaskModal] = useState(false); 
   const [selectedTask, setSelectedTask] = useState(null); 
-
+  const ganttContainer = useRef(null);
   
 
   const motivationalQuotes = [
@@ -62,6 +67,25 @@ function App() {
       toast.info("Pomodoro session completed! Starting the next session.");
     }
   }, [isPomodoroRunning, pomodoroTime, pomodoroCount]);
+
+  useEffect(() => {
+    // Initialize Gantt
+    gantt.init(ganttContainer.current);
+
+    // Task data structure for Gantt
+    const ganttTasks = {
+      data: tasks.map((task, index) => ({
+        id: index + 1,
+        text: task.name,
+        start_date: new Date(),
+        duration: task.estimatedTime || 1,
+        progress: task.progress / 100
+      }))
+    };
+
+    gantt.parse(ganttTasks); // Load tasks into Gantt
+
+  }, [tasks]);
 
   // Function to request fullscreen mode
   const requestFullScreen = (element) => {
@@ -291,18 +315,29 @@ function App() {
       {!isPomodoroMode && (
         <>
           <h1 className="app-title">GuideWise AI</h1>
-
+          <div className="spline-animation">
+            <iframe 
+              src="https://my.spline.design/draganddropbookpencilschoolcopy-f0f297d384cf744b4944a2eed7501ad9/" 
+              frameBorder="0" 
+              width="100%" 
+              height="500px" 
+              title="Spline 3D Animation"
+              style={{ borderRadius: '10px', marginBottom: '20px' }}
+            ></iframe>
+          </div>
           <div className="container">
             <div className="left-section">
               <h2>Task Update</h2>
               <form onSubmit={handleSubmit}>
                 <label>What’s your study goal for today?</label>
+                <br />
                 <input 
                   type="text" 
                   value={taskName} 
                   onChange={(e) => setTaskName(e.target.value)} 
-                  placeholder="Enter your task..." 
+                  placeholder="Enter your task..."  
                 />
+                <br /> <br />
 
                 <label>Progress:</label>
                 <input 
@@ -313,7 +348,9 @@ function App() {
                   onChange={(e) => setProgressValue(e.target.value)} 
                   className="slider" 
                 />
+               
                 <p>{progressValue}%</p>
+                <br /> <br />
 
                 <label>Confidence:</label>
                 <input 
@@ -325,7 +362,7 @@ function App() {
                   className="slider" 
                 />
                 <p>{confidenceValue}%</p>
-
+                <br /> <br />
                 <label>Estimated Time:</label>
                 <input 
                   type="range" 
@@ -336,7 +373,7 @@ function App() {
                   className="slider" 
                 />
                 <p>{estimatedTimeValue} hours</p>
-
+                <br /> <br />
                 <label>Priority (1 = Low, 3 = High):</label>
                 <input 
                   type="range" 
@@ -347,10 +384,10 @@ function App() {
                   className="slider" 
                 />
                 <p>{priorityValue === 3 ? 'High' : priorityValue === 2 ? 'Medium' : 'Low'}</p>
-
+                
                 <button className="submit-btn" type="submit">Add Task</button>
               </form>
-
+              <br /> <br /> 
               <h3>Task List</h3>
               <table className="task-table">
                 <thead>
@@ -386,7 +423,7 @@ function App() {
                   )}
                 </tbody>
               </table>
-
+              <br /> <br />
               <h3>Completed Tasks</h3>
               {completedTasks.length > 0 ? (
                 <ul className="completed-tasks-list">
@@ -412,7 +449,7 @@ function App() {
                 className="slider" 
               />
               <p>Mood: {moodValue}</p>
-
+              <br /> <br />
               <label>Energy Level (1 = Low, 5 = High)</label>
               <input 
                 type="range" 
@@ -423,7 +460,7 @@ function App() {
                 className="slider" 
               />
               <p>Energy: {energyValue}</p>
-
+              <br /> <br />
               <label>Distraction Level (1 = Focused, 5 = Distracted)</label>
               <input 
                 type="range" 
@@ -434,7 +471,7 @@ function App() {
                 className="slider" 
               />
               <p>Distraction: {distractionValue}</p>
-
+              <br /> <br />
               <label>Sleep Quality (1 = Poor, 5 = Well-Rested)</label>
               <input 
                 type="range" 
@@ -445,18 +482,19 @@ function App() {
                 className="slider" 
               />
               <p>Sleep Quality: {sleepQualityValue}</p>
-
+              <br /><hr /><br />
               <button className="analyze-btn" onClick={handleAnalyze}>Analyze Learning Style</button>
-
+              <br /> <br /> 
               {learningStyle && (
                 <div className="learning-suggestion">
                   <h3>Your Learning Style</h3>
                   <p>{learningStyle}</p>
+                  
                   <h4>Motivational Suggestion</h4>
                   <p>{motivationalSuggestion}</p>
                 </div>
               )}
-
+              
               {taskSuggestions.length > 0 && (
                 <div className="task-suggestions">
                   <h3>Suggested Tasks</h3>
@@ -465,18 +503,19 @@ function App() {
                       <li key={index}>{task.name} - Confidence: {task.confidence}% - Estimated Time: {task.estimatedTime} hours</li>
                     ))}
                   </ul>
+                  
                   <button className="kickstart-btn">Kickstart for Today!</button>
                 </div>
               )}
-
+              
               <div className="pomodoro-section">
-                <h3>Pomodoro Timer</h3>
+                <h2>Pomodoro Timer</h2>
                 <p className="pomodoro-timer">
                   {Math.floor(pomodoroTime / 60)}:{pomodoroTime % 60 < 10 ? '0' : ''}{pomodoroTime % 60}
                 </p>
-                <button onClick={handleDistractedClick}>I'm Distracted</button>
-              </div>
-
+                <br /><br /><br /> 
+                
+              
               <div className="bell-toggle-section">
                 <h3>Focus Bell</h3>
                 <label>
@@ -488,9 +527,12 @@ function App() {
                   Enable Focus Bell
                 </label>
               </div>
-
+              <hr />
+              <br />
               <div className="distracted-section">
                 <h3>Feeling Distracted?</h3>
+                <button onClick={handleDistractedClick}>I'm Distracted</button>
+              </div>
                 <p>Distraction Count: {distractedCount}</p>
               </div>
               
@@ -525,6 +567,7 @@ function App() {
               {Math.floor(pomodoroTime / 60)}:{pomodoroTime % 60 < 10 ? '0' : ''}{pomodoroTime % 60}
             </p>
           </div>
+      
 
           <div className="pomodoro-thoughts-section">
             <h3>Intrusive Thoughts</h3>
@@ -541,20 +584,54 @@ function App() {
               placeholder="Log unclear topics or questions here..." 
               value={unclearTopics}
               onChange={(e) => setUnclearTopics(e.target.value)} 
+              
             />
+            <br /> <br /> <br />
           </div>
-
+        <br /> <br /> <br />
           <button className="leave-session-btn" onClick={handleLeaveStudySession}>
             Leave Study Session (I Quit)
           </button>
         </div>
         
+        
       )}
+      <br /> <br /> <br />
       <div className="App">
+      <br /> <br /> <br /> <br /> <br /> 
                 <h1>Kanban Board</h1>
                   <KanbanBoard columns={columns} onDragEnd={onDragEnd} />
                   
-               </div>
+      </div>
+
+
+
+        
+      <h1>GuideWise AI with Gantt Chart</h1>
+
+          <form onSubmit={handleSubmit}>
+            <label>What’s your study goal for today?</label>
+            <br />
+            <input 
+                type="text" 
+                value={taskName} 
+                onChange={(e) => setTaskName(e.target.value)} 
+                placeholder="Enter your task..." 
+              />
+              <button type="submit">Add Task</button>
+            </form>
+
+            <div 
+              ref={ganttContainer} 
+              className="gantt-container"
+            
+              ></div>
+               
+
+
+
+        
+
        
       <ToastContainer />
     </div>
