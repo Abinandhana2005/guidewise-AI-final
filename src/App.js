@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import KanbanBoard from './KanbanBoard';
 import './App.css';
 
 function App() {
@@ -197,6 +198,83 @@ function App() {
 
     return sortedTasks;
   };
+  const initialColumns = [
+    {
+      id: 'column-1',
+      title: 'To Do',
+      cards: [
+        { id: 'card-1', content: 'Task 1' },
+        { id: 'card-2', content: 'Task 2' },
+      ],
+    },
+    {
+      id: 'column-2',
+      title: 'In Progress',
+      cards: [
+        { id: 'card-3', content: 'Task 3' },
+      ],
+    },
+    {
+      id: 'column-3',
+      title: 'Done',
+      cards: [
+        { id: 'card-4', content: 'Task 4' },
+      ],
+    },
+  ];
+  
+  const App = () => {
+    const [columns, setColumns] = useState(initialColumns);
+  
+    const onDragEnd = (result) => {
+      const { destination, source, draggableId } = result;
+  
+      if (!destination) return;
+  
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return;
+      }
+  
+      const startColumn = columns.find((column) => column.id === source.droppableId);
+      const finishColumn = columns.find((column) => column.id === destination.droppableId);
+  
+      if (startColumn === finishColumn) {
+        const newCards = Array.from(startColumn.cards);
+        newCards.splice(source.index, 1);
+        newCards.splice(destination.index, 0, { id: draggableId, content: draggableId });
+  
+        const newColumn = {
+          ...startColumn,
+          cards: newCards,
+        };
+  
+        setColumns(columns.map((column) =>
+          column.id === startColumn.id ? newColumn : column
+        ));
+        return;
+      }
+  
+      const startCards = Array.from(startColumn.cards);
+      startCards.splice(source.index, 1);
+      const newStartColumn = {
+        ...startColumn,
+        cards: startCards,
+      };
+  
+      const finishCards = Array.from(finishColumn.cards);
+      finishCards.splice(destination.index, 0, { id: draggableId, content: draggableId });
+      const newFinishColumn = {
+        ...finishColumn,
+        cards: finishCards,
+      };
+  
+      setColumns(columns.map((column) =>
+        column.id === newStartColumn.id ? newStartColumn : column.id === newFinishColumn.id ? newFinishColumn : column
+      ));
+    };
 
   return (
     <div className={`App ${isPomodoroMode ? 'pomodoro-mode' : ''}`}>
@@ -405,6 +483,11 @@ function App() {
                 <h3>Feeling Distracted?</h3>
                 <p>Distraction Count: {distractedCount}</p>
               </div>
+                
+              <div className="App">
+                <h1>Kanban Board</h1>
+                 <KanbanBoard columns={columns} onDragEnd={onDragEnd} />
+               </div>
             </div>
           </div>
         </>
@@ -462,5 +545,5 @@ function App() {
     </div>
   );
 }
-
+}
 export default App;
