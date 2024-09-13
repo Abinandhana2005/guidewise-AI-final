@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KanbanBoard from './KanbanBoard';
+import KanbanCard from './KanbanCard';
 import './App.css';
+
+
+
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -29,6 +33,8 @@ function App() {
   const [pomodoroCount, setPomodoroCount] = useState(0);
   const [showTaskModal, setShowTaskModal] = useState(false); 
   const [selectedTask, setSelectedTask] = useState(null); 
+
+  
 
   const motivationalQuotes = [
     "Keep going! You're doing amazing!",
@@ -223,7 +229,7 @@ function App() {
     },
   ];
   
-  const App = () => {
+  
     const [columns, setColumns] = useState(initialColumns);
   
     const onDragEnd = (result) => {
@@ -275,6 +281,10 @@ function App() {
         column.id === newStartColumn.id ? newStartColumn : column.id === newFinishColumn.id ? newFinishColumn : column
       ));
     };
+
+   
+    
+    
 
   return (
     <div className={`App ${isPomodoroMode ? 'pomodoro-mode' : ''}`}>
@@ -333,7 +343,7 @@ function App() {
                   min="1" 
                   max="3" 
                   value={priorityValue} 
-                  onChange={(e) => setPriorityValue(e.target.value)} 
+                  onChange={(e) => setPriorityValue(parseInt(e.target.value))}
                   className="slider" 
                 />
                 <p>{priorityValue === 3 ? 'High' : priorityValue === 2 ? 'Medium' : 'Low'}</p>
@@ -483,13 +493,12 @@ function App() {
                 <h3>Feeling Distracted?</h3>
                 <p>Distraction Count: {distractedCount}</p>
               </div>
-                
-              <div className="App">
-                <h1>Kanban Board</h1>
-                 <KanbanBoard columns={columns} onDragEnd={onDragEnd} />
-               </div>
+              
+             
+               
             </div>
           </div>
+          
         </>
       )}
 
@@ -539,11 +548,17 @@ function App() {
             Leave Study Session (I Quit)
           </button>
         </div>
+        
       )}
-
+      <div className="App">
+                <h1>Kanban Board</h1>
+                  <KanbanBoard columns={columns} onDragEnd={onDragEnd} />
+                  
+               </div>
+       
       <ToastContainer />
     </div>
   );
 }
-}
+
 export default App;

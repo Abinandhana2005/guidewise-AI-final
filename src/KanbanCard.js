@@ -1,8 +1,11 @@
-// src/components/KanbanCard.js
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
-const KanbanCard = ({ card, index }) => {
+const KanbanCard = ({ card, index, deleteCard }) => {
+  const handleDelete = () => {
+    deleteCard(card.id);
+  };
+
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided) => (
@@ -12,7 +15,10 @@ const KanbanCard = ({ card, index }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {card.content}
+          <div className="card-content">
+            {card.content}
+          </div>
+          <button className="delete-button" onClick={handleDelete}>Delete</button>
         </div>
       )}
     </Draggable>

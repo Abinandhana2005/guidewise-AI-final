@@ -9,7 +9,8 @@ body {
 .App {
   text-align: center;
   padding: 20px;
-}
+  background-color: #222;
+  }
 
 .app-title {
   font-size: 5em; /* Make it bigger */
@@ -62,7 +63,8 @@ input[type="text"], input[type="range"] {
 }
 
 input[type="range"] {
-  -webkit-appearance: none;
+ 
+  appearance: none; /* Standard property for cross-browser compatibility */
   height: 8px; /* Adjust thickness */
   background-color: orange; /* Unchosen part */
   border-radius: 5px;
@@ -248,9 +250,10 @@ button:hover {
 }
 
 .kanban-card {
+  border: 1px solid #6c2121;
   padding: 8px;
-  margin: 0 0 8px 0;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin: 4px;
+  background-color: #5f0909; /* Change this to your desired color */
+  color: #000; /* Text color inside the card */
 }
+

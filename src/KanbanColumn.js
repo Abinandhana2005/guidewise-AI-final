@@ -1,27 +1,55 @@
-// src/components/KanbanBoard.js
-import React from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import KanbanColumn from './KanbanColumn';
+import React, { useState } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
+import KanbanCard from './KanbanCard';
+import './KanbanColumn.css'; // Make sure to import the CSS file
 
-const KanbanBoard = ({ columns, onDragEnd }) => {
+const KanbanColumn = ({ column, cards, index, addCard, deleteCard }) => {
+  const [inputValue, setInputValue] = useState('');
+
+  if (!column) {
+    return null; // Return null if column is undefined
+  }
+
+  const handleAddCard = () => {
+    if (inputValue.trim()) {
+      addCard(column.id, inputValue);
+      setInputValue('');
+    }
+  };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="board" direction="horizontal">
-        {(provided) => (
-          <div
-            className="kanban-board"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {columns.map((column, index) => (
-              <KanbanColumn key={column.id} column={column} index={index} />
-            ))}
-            {provided.placeholder}
+    <Droppable droppableId={column.id} direction="vertical">
+      {(provided) => (
+        <div
+          className="kanban-column"
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          <h3>{column.title}</h3>
+          {column.cardIds.map((cardId, index) => (
+            cards[cardId] ? (
+              <KanbanCard
+                key={cardId}
+                card={cards[cardId]}
+                index={index}
+                deleteCard={deleteCard} // Pass deleteCard function here
+              />
+            ) : null
+          ))}
+          {provided.placeholder}
+          <div className="add-task-container">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Enter Task"
+            />
+            <button onClick={handleAddCard}>Add Task</button>
           </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+        </div>
+      )}
+    </Droppable>
   );
 };
 
-export default KanbanBoard;
+export default KanbanColumn;
